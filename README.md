@@ -1,54 +1,66 @@
 # Sparse Linear Systems Solvers Comparison Tests
 > Comparison tests for the Cholesky method for the resolution of sparse linear systems of equations between MATLAB, Python's Scikit library, on Linux and Windows
 
-Project 1 for the *Methods of Scientific Computing* course for the MSc in Computer Science at University of Milano-Bicocca.
-
-![](header.png)
+Project for the *Methods of Scientific Computing* course for the MSc in Computer Science at University of Milano-Bicocca.
 
 ## Brief
 
-To make tests easier to replicate -> containers\
-Linux/Windows container must have same specs\
-Monitoring to check stats\
-Run MATLAB/X script in both container, extract stats, compare
 
 ## Prerequisites
 
-Prerequisites for Python
+The following sparse matrices from `https://sparse.tamu.edu/` have to be downloaded inside `res/matrices`
+
+* Flan 1565
+* StocF-1465
+* cfd2
+* cfd1
+* G3 circuit
+* parabolic fem
+* apache2
+* shallow water1
+* ex15
+
+### Prerequisites for Python
 * NumPy
 * SciPy
-* SuiteSparse (CHOLMOD) (scikit-sparse)
+* SciKit-Sparse (SuiteSparse, CHOLMOD)
 
-Prerequisites for MATLAB
-
+### Prerequisites for C++
+* Eigen
+* Eigen unsupported modules (SparseExtra)
+Both Eigen and its unsupported modules are already included in the project under `c++/lib`
 
 ## Installation
 
-### For Python
 ```sh
-git clone https://github.com/Dodicin/slss-comparison-test
-cd slss-comparison-test
-cd python
-virtualenv .venv
-source .venv/bin/activate
-pip install numpy
-pip install scikit-sparse
+$ git clone https://github.com/Dodicin/slss-comparison-test
+$ cd slss-comparison-test
 ```
 
-## Usage example
+### For Python
+```sh
+$ cd python
+$ virtualenv .venv
+$ source .venv/bin/activate
+$ pip install numpy
+$ pip install scipy
+$ pip install scikit-sparse
+$ python main.py
+```
+### For C++
+```sh
+$ cd c++
+$ g++ -Ilib main.cpp main.exe
+$ ./main.exe
+```
 
-Start Windows container
-Run
-Somehow get metrics
+## Metrics
 
-Start Linux container
-Run
-Somehow get metrics
-
+TODO
 
 ## Author
 
-* **Marco Ferri** (807130) -
+* **Marco Ferri** (807130)
 * **Nassim Habbash** (808292) - [dodicin](https://github.com/dodicin)
 
 <!-- Markdown link & img dfn's -->

@@ -17,4 +17,4 @@ x = factor.solve_A(b)
 
 rel_error = np.linalg.norm(x-xe)/np.linalg.norm(xe)
 
-print(rel_error)
+print("Relative error: " + str(rel_error))
