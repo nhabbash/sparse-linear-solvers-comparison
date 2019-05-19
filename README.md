@@ -1,7 +1,5 @@
-# Cholesky Comparison Test
-> Comparison tests for the Cholesky method for the resolution of linear systems of equations between MATLAB and X, on Linux and Windows
-
-[![Build Status][travis-image]][travis-url]
+# Sparse Linear Systems Solvers Comparison Tests
+> Comparison tests for the Cholesky method for the resolution of sparse linear systems of equations between MATLAB, Python's Scikit library, on Linux and Windows
 
 Project 1 for the *Methods of Scientific Computing* course for the MSc in Computer Science at University of Milano-Bicocca.
 
@@ -14,10 +12,27 @@ Linux/Windows container must have same specs\
 Monitoring to check stats\
 Run MATLAB/X script in both container, extract stats, compare
 
+## Prerequisites
+
+Prerequisites for Python
+* NumPy
+* SciPy
+* SuiteSparse (CHOLMOD) (scikit-sparse)
+
+Prerequisites for MATLAB
+
+
 ## Installation
 
+### For Python
 ```sh
-git clone https://github.com/Dodicin/cholesky-comparison-test
+git clone https://github.com/Dodicin/slss-comparison-test
+cd slss-comparison-test
+cd python
+virtualenv .venv
+source .venv/bin/activate
+pip install numpy
+pip install scikit-sparse
 ```
 
 ## Usage example
