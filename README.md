@@ -48,7 +48,8 @@ Somehow get metrics
 
 ## Author
 
-* **Nassim Habbash** (808292)- [dodicin](https://github.com/dodicin)
+* **Marco Ferri** (807130) -
+* **Nassim Habbash** (808292) - [dodicin](https://github.com/dodicin)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
