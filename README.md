@@ -8,7 +8,7 @@ Project for the *Methods of Scientific Computing* course for the MSc in Computer
 
 ## Prerequisites
 
-The following sparse matrices from `https://sparse.tamu.edu/` have to be downloaded inside `res/matrices`
+The following sparse matrices from `https://sparse.tamu.edu/` have to be downloaded inside `res/matrices`, in the `mtx` format.
 
 * Flan 1565
 * StocF-1465
@@ -45,18 +45,27 @@ $ source .venv/bin/activate
 $ pip install numpy
 $ pip install scipy
 $ pip install scikit-sparse
-$ python main.py
+$ python main.py [matrix name, e.g. ex15.mtx]
 ```
 ### For C++
 ```sh
 $ cd c++
 $ g++ -Ilib main.cpp main.exe
-$ ./main.exe
+$ ./main.exe [matrix name, e.g. ex15.mtx]
 ```
 
 ## Metrics
 
-TODO
+Metrics are saved under `./log`, in the following format:
+
+* Logfile: [Matrix name]-[Program]-[Platform].log, for example: `ex15.mtx-cpp-Linux.log`.
+* The logfiles are readable as `csv` files.
+* The logfile metrics follow this format:
+    * Date, 22-05-2019 10:11:33
+    * Factorization time, 0.198387
+    * Resolution time, 0.012410
+    * Relative error, 7.26641e-07
+    * Newline
 
 ## Author
 

@@ -11,18 +11,12 @@ typedef SparseMatrix<double, ColMajor, int64_t> SpMat;
 
 std::string get_platform()
 {
-    #ifdef _WIN32
+    #ifdef _WIN64 || _WIN32
     return "Windows";
-    #elif _WIN64
-    return "Windows";
-    #elif __unix || __unix__
-    return "Unix";
+    #elif __unix || __unix__ || __linux__
+    return "Linux";
     #elif __APPLE__ || __MACH__
     return "MacOSX";
-    #elif __linux__
-    return "Linux";
-    #elif __FreeBSD__
-    return "FreeBSD";
     #else
     return "Other";
     #endif
