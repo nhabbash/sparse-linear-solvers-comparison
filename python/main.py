@@ -9,12 +9,12 @@ import scipy as sp
 import scipy.io as io
 from sksparse.cholmod import cholesky
 
-mat_name = sys.argv[1]
-if (not mat_name):
+mat_path = sys.argv[1]
+if (not mat_path):
     sys.exit(0)
 
 res_path = "../res/matrices/"
-mat_path = res_path + str(mat_name)
+_, mat_name = os.path.split(mat_path)
 
 mat = io.mmread(mat_path)
 
@@ -36,13 +36,15 @@ resolution_time = time.process_time() - resolution_time
 rel_error = np.linalg.norm(x-xe)/np.linalg.norm(xe)
 
 # Writing logfile
-log_path = "../log/"
+log_path = "log/"
 if not os.path.exists(log_path):
     os.makedirs(log_path)
 
-platform = platform.system()
-logfile = open(log_path + mat_name + "-" + "python-" + platform + ".log", "a")
 date = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+timestamp = datetime.now().strftime('%d%m%Y-%H:%M:%S')
+
+platform = platform.system()
+logfile = open(log_path + mat_name + "-" + "python-" + platform + "-" + timestamp + ".log", "a")
 
 logfile.write("Date, " + date + "\n")
 logfile.write("Factorization time, " + str(factorization_time) + "\n")

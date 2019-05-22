@@ -50,7 +50,7 @@ $ python main.py [matrix name, e.g. ex15.mtx]
 ### For C++
 ```sh
 $ cd c++
-$ g++ -Ilib main.cpp main.exe
+$ g++ -Ilib -std=gnu++17 main.cpp -lstdc++fs -o main.exe
 $ ./main.exe [matrix name, e.g. ex15.mtx]
 ```
 
