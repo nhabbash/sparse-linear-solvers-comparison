@@ -8,7 +8,7 @@ Project for the *Methods of Scientific Computing* course for the MSc in Computer
 
 ## Prerequisites
 
-The following sparse matrices from `https://sparse.tamu.edu/` have to be downloaded inside `res/matrices`, in the `mtx` format.
+The following sparse matrices from `https://sparse.tamu.edu/` have to be downloaded inside `res/matrices`, in the `mtx` format. Only the `ex15` matrix is provided with the project. 
 
 * Flan 1565
 * StocF-1465
