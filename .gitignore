@@ -5,6 +5,6 @@ c++/main.exe
 res/matrices
 log/*.log
 !res/matrices/ex15.mtx
-!ex15.mat-matlab-Linux-22052019-15:21:17.log
-!ex15.mtx-cpp-Linux-22052019-15:21:18.log
-!ex15.mtx-python-Linux-22052019-15:21:18.log
+!ex15.mat-matlab-Linux-22052019162938.log
+!ex15.mtx-cpp-Linux-22052019162944.log
+!ex15.mtx-python-Linux-22052019162943.log

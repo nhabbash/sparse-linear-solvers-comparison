@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 	
 	time(&curr_time);
 	curr_tm = localtime(&curr_time);
-	strftime(timestamp, 50, "%d%m%Y-%H:%M:%S", curr_tm);
+	strftime(timestamp, 50, "%d%m%Y%H%M%S", curr_tm);
 	strftime(date_string, 50, "%d-%m-%Y %H:%M:%S", curr_tm);
 
     // log_path directory must exist in the path where the executable is launched

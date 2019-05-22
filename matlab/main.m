@@ -24,7 +24,7 @@ function main(inputfile)
     end
 
     date = datestr(now,'dd-mm-yyyy HH:MM:SS');
-    timestamp = datestr(now,'ddmmyyyy-HH:MM:SS');
+    timestamp = datestr(now,'ddmmyyyyHHMMSS');
     
     args = strsplit(inputfile, "/");
     mat_name = args(end);

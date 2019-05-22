@@ -40,7 +40,7 @@ for file in res_list:
 
 matrices.sort(key = lambda s: s[0])
 
-#matrices = matrices[:2]
+matrices = matrices[:2]
 
 for mat in matrices:
     mat_name = mat[1]

@@ -41,7 +41,7 @@ if not os.path.exists(log_path):
     os.makedirs(log_path)
 
 date = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-timestamp = datetime.now().strftime('%d%m%Y-%H:%M:%S')
+timestamp = datetime.now().strftime('%d%m%Y%H%M%S')
 
 platform = platform.system()
 logfile = open(log_path + mat_name + "-" + "python-" + platform + "-" + timestamp + ".log", "a")
