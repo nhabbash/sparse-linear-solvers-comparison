@@ -4,3 +4,5 @@ log/*.log
 !log/example.log
 ipch
 c++/main.exe
+res/matrices
+!res/matrices/ex15.mtx
