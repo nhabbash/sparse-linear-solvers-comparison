@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     //if(argc < 2) return -1;
 
     std::string mat_path = argv[1];
-    std::string mat_name = std::filesystem::path(mat_path).filename();
+    std::string mat_name = std::filesystem::path(mat_path).string();
 
     typedef SparseMatrix<double, ColMajor, int64_t> SpMat;
     SpMat A;
@@ -54,34 +54,41 @@ int main(int argc, char *argv[])
     double rel_error = tmp.norm()/xe.norm();
 
     // Writing logfile
+
     time_t curr_time;
 	tm * curr_tm;
 	char date_string[100];
-    char timestamp[100];
-	
+
 	time(&curr_time);
 	curr_tm = localtime(&curr_time);
-	strftime(timestamp, 50, "%d%m%Y%H%M%S", curr_tm);
 	strftime(date_string, 50, "%d-%m-%Y %H:%M:%S", curr_tm);
 
-    // log_path directory must exist in the path where the executable is launched
-    std::string log_path = "log/";
     std::string platform = get_platform();
+
+    size_t lastindex = mat_name.find_last_of("/"); 
+    std::string name = mat_name.substr(lastindex+1, mat_name.length());
+    lastindex = name.find_last_of("."); 
+    name = name.substr(0, lastindex);
+
+    std::string data_file = "data/data.csv";
     std::fstream logfile;
-    std::string filename = mat_name + "-" + "cpp-" + platform + "-" + timestamp + ".log";
-    logfile.open(log_path + filename, std::fstream::app);
+    logfile.open(data_file, std::fstream::app);
 
     if (logfile.is_open())
     {
-        logfile << "Date, " << date_string << "\n";
-        logfile << "Factorization time, " << factorization_time << "\n";
-        logfile << "Resolution time, " << resolution_time << "\n";
-        logfile << "Relative error, " << rel_error << "\n\n";
+        //["date", "platform", "name", "library", "factorization time", "resolution time", "relative error", "physical memory", "virtual memory"]
+        
+        logfile << date_string << ", ";
+        logfile <<  platform << ", ";
+        logfile << name << ", ";
+        logfile << "eigen" << ", ";
+        logfile <<  factorization_time << ", ";
+        logfile <<  resolution_time << ", ";
+        logfile <<  rel_error << ", ";
+        
     }
 
     logfile.close();
-
-    //std::cout << filename << std::endl;
 
     return 0;
 }

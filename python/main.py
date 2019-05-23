@@ -36,19 +36,22 @@ resolution_time = time.process_time() - resolution_time
 rel_error = np.linalg.norm(x-xe)/np.linalg.norm(xe)
 
 # Writing logfile
-log_path = "log/"
-if not os.path.exists(log_path):
-    os.makedirs(log_path)
 
+data_file = "data/data.csv"
 date = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-timestamp = datetime.now().strftime('%d%m%Y%H%M%S')
-
 platform = platform.system()
-logfile = open(log_path + mat_name + "-" + "python-" + platform + "-" + timestamp + ".log", "a")
+name, _ = os.path.splitext(mat_name)
 
-logfile.write("Date, " + date + "\n")
-logfile.write("Factorization time, " + str(factorization_time) + "\n")
-logfile.write("Resolution time, " + str(resolution_time) + "\n")
-logfile.write("Relative error, " + str(rel_error) + "\n\n")
 
-logfile.close()
+#["date", "platform", "name", "library", "factorization time", "resolution time", "relative error", "physical memory", "virtual memory"]
+
+with open(data_file, "a") as logfile:
+        logfile.write(
+                    date + ", " + 
+                    platform + ", " + 
+                    name + ", " + 
+                    "scikit-sparse, " + 
+                    str(factorization_time)  + ", " + 
+                    str(resolution_time) + ", " +
+                    str(rel_error) + ", ")
+

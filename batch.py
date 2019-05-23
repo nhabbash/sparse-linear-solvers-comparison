@@ -2,11 +2,21 @@ import os
 import time
 import subprocess
 import psutil
+from datetime import datetime
+import csv
+from collections import defaultdict
+
+res_path = "res/matrices/"
+data_file = "data/data.csv"
 
 def run_subprocess(cmd):
-    logs_list = os.listdir(log_path)
 
-    p = subprocess.Popen(cmd, shell=True)
+    flag = False
+    #if cmd[0] == "matlab":
+    #    flag = True
+    #    cmd = cmd[1]
+
+    p = subprocess.Popen(cmd, shell = flag)
     proc = psutil.Process(p.pid)
     mem_table = []
 
@@ -15,48 +25,55 @@ def run_subprocess(cmd):
         mem_table.append((mem.rss, mem.vms)) #in bytes
         time.sleep(1)
 
-    new_logs_list = os.listdir(log_path)
-    target_log = list(set(new_logs_list) - set(logs_list))
+    peak_mem = [max(y) for y in zip(*mem_table)]
 
-    avg_mem = [sum(y) / len(y) for y in zip(*mem_table)]
+    with open(data_file, "a") as logfile:
+        logfile.write(str(peak_mem[0]) + ", " + str(peak_mem[1]) + "\n")
 
-    if (len(target_log) == 1):
-        logfile = open(log_path + target_log[0], "a")
-        logfile.write("Physical memory, " + str(avg_mem[0]) + "\n")
-        logfile.write("Virtual memory, " + str(avg_mem[1]) + "\n")
+def main():
 
-        logfile.close()
+    if not os.path.exists("data/"):
+        os.makedirs("data/")
+        if not os.path.exists("data/data.csv"):
+            with open(data_file, "a") as logfile:
+                header_writer = csv.writer(logfile, delimiter=",")
+                header_writer.writerow(["date", "platform", "name", "library", "factorization time", "resolution time", "relative error", "physical memory", "virtual memory"])
 
-res_path = "res/matrices/"
-log_path = "log/"
-res_list = os.listdir(res_path)
+    res_list = os.listdir(res_path)
 
-matrices = []
+    matrices = []
 
-for file in res_list:
-    path = os.path.join(res_path, file)
-    size = os.path.getsize(path)
-    matrices.append((size, path))
+    for file in res_list:
+        path = os.path.join(res_path, file)
+        size = os.path.getsize(path)
+        matrices.append((size, path))
 
-matrices.sort(key = lambda s: s[0])
+    matrices.sort(key = lambda s: s[0])
 
-matrices = matrices[:2]
+    # For debug
+    matrices = matrices[:2]
 
-for mat in matrices:
-    mat_name = mat[1]
-    name, ext = os.path.splitext(mat_name)
+    for mat in matrices:
+        mat_name = mat[1]
+        _, ext = os.path.splitext(mat_name)
 
-    if(ext == ".mat"):
-        # Run MATLAB script
+        if(ext == ".mat"):
+            # Run MATLAB script
+            cmd = ["matlab", "-batch", "\"cd matlab;main(\'../" + mat_name + "\');\""]
+            #cmd = ["matlab", "matlab -nojvm -nodisplay -nosplash -nodesktop -r \"try;cd matlab;main(\'../" + mat_name + "\');catch;end;quit;\""]
 
-        cmd = "matlab -nojvm -nodisplay -nosplash -nodesktop -r \"try;cd matlab;main(\'../" + mat_name + "\');catch;end;quit;\""  
-        run_subprocess(cmd)
+            run_subprocess(cmd)
 
-    else:
-        # Run Python script, then C++
-        cmd = "python python/main.py " + mat_name
-        run_subprocess(cmd)
+        else:
+            # Run Python script, then C++
+            cmd = ["python", "python/main.py", mat_name]
+            run_subprocess(cmd)
 
-        cmd = "c++/main.exe " + mat_name
-        run_subprocess(cmd)
-            
+            cmd = ["c++/main.exe", mat_name]
+            run_subprocess(cmd)
+
+    #timestamp = datetime.now().strftime('%d%m%Y%H%M%S')
+    #os.rename(data_file, "log/data-" + timestamp + ".csv")
+
+main()
+

@@ -13,7 +13,7 @@ function main(inputfile)
 
     error = norm(x - xe) / norm(xe);
     
-    % Logging
+    % Writing logfile
     
     platform = "Other";
     
@@ -23,19 +23,23 @@ function main(inputfile)
         platform = "Windows";
     end
 
-    date = datestr(now,'dd-mm-yyyy HH:MM:SS');
-    timestamp = datestr(now,'ddmmyyyyHHMMSS');
-    
+    date = datestr(now,'dd-mm-yyyy HH:MM:SS');    
+
     args = strsplit(inputfile, "/");
     mat_name = args(end);
-    log_path = "../log/";
-    logfile = mat_name + "-matlab-" + platform + "-" + timestamp + ".log";
-    file = fopen(log_path + logfile, 'a');
+    name = split(mat_name, ".");
+    name = string(name(1));
+
+    data_file = "../data/data.csv";
+    file = fopen(data_file, 'a');
     
-    
-    fprintf(file,'Date, %s \n', date);
-    fprintf(file,'Factorization + Resolution time, %f \n', time);
-    fprintf(file,'Relative error, %e\n\n', error);
+    % ["date", "platform", "name", "library", "factorization time", "resolution time", "relative error", "physical memory", "virtual memory"])
+    fprintf(file,'%s, ', date);
+    fprintf(file,'%s, ', platform);
+    fprintf(file,'%s, ', name);
+    fprintf(file,'matlab, ');
+    fprintf(file,'%f, ', time);
+    fprintf(file,'null, ');
+    fprintf(file,'%e, ', error);
     fclose(file);
-    %disp(logfile);
 end
