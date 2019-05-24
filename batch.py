@@ -34,10 +34,11 @@ def main():
 
     if not os.path.exists("data/"):
         os.makedirs("data/")
-        if not os.path.exists("data/data.csv"):
-            with open(data_file, "a") as logfile:
-                header_writer = csv.writer(logfile, delimiter=",")
-                header_writer.writerow(["date", "platform", "name", "library", "factorization time", "resolution time", "relative error", "physical memory", "virtual memory"])
+    
+    if not os.path.exists("data/data.csv"):
+        with open(data_file, "a") as logfile:
+            header_writer = csv.writer(logfile, delimiter=",")
+            header_writer.writerow(["date", "platform", "name", "library", "factorization time", "resolution time", "relative error", "physical memory", "virtual memory"])
 
     res_list = os.listdir(res_path)
 
@@ -59,9 +60,9 @@ def main():
 
         if(ext == ".mat"):
             # Run MATLAB script
-            cmd = ["matlab", "-batch", "\"cd matlab;main(\'../" + mat_name + "\');\""]
+            cmd = ["matlab", "-batch", "cd matlab;main(\'../" + mat_name + "\');"]
             #cmd = ["matlab", "matlab -nojvm -nodisplay -nosplash -nodesktop -r \"try;cd matlab;main(\'../" + mat_name + "\');catch;end;quit;\""]
-
+            #cmd = ["matlab", "-nojvm", "-nodisplay", "-nosplash", "-nodesktop", "-r", "\"try;cd matlab;main(\'../" + mat_name + "\');catch;end;quit;\""]
             run_subprocess(cmd)
 
         else:

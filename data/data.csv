@@ -1,0 +1,4 @@
+date,platform,name,library,factorization time,resolution time,relative error,physical memory,virtual memory
+24-05-2019 09:08:26, Linux, ex15, matlab, 0.111336, null, 6.862023e-07, 597839872, 5233750016
+24-05-2019 09:08:30, Linux, ex15, scikit-sparse, 1.893028171, 0.00475002499999988, 6.014619530992177e-07, 884736, 6258688
+24-05-2019 09:08:30, Linux, ex15, eigen, 0.192032, 0.012449, 7.26641e-07, 741376, 5795840
