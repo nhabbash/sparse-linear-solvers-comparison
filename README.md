@@ -31,60 +31,51 @@ The following sparse matrices from `https://sparse.tamu.edu/` have to be downloa
 * Eigen unsupported modules (SparseExtra)
 Both Eigen and its unsupported modules are already included in the project under `c++/lib`
 
+#
 ## Installation
+
+### Linux
 
 ```sh
 $ git clone https://github.com/Dodicin/slss-comparison-test
 $ cd slss-comparison-test
-```
 
-### For Python
-```sh
+# Setting up Python VirtualEnv
 $ virtualenv .venv
 $ source .venv/bin/activate
 $ pip install numpy
 $ pip install scipy
 $ pip install scikit-sparse
-$ python python/main.py res/matrices/ex15.mtx
-```
 
-### For C++
-```sh
+# Compiling C++
 $ cd c++
 $ g++ -Ilib -std=gnu++17 main.cpp -lstdc++fs -o main.exe
 $ cd ..
-$ ./c++/main.exe res/matrices/ex15.mtx
+
+# Executing batch file
+$ python batch.py
+
 ```
 
-### For MATLAB
+### Windows
+
 ```sh
-$ matlab -nojvm -nodisplay -nosplash -nodesktop -r "try;cd matlab;main('../res/matrices/ex15.mat');catch;end;quit;"
+#TODO
 ```
 
 ## Metrics
 
-Metrics are saved under `./log`, in the following format:
+Metrics are saved under `./data/data.csv`, in the following format:
 
-* Logfile: [Matrix name]-[Program]-[Platform].log, for example: `ex15.mtx-cpp-Linux.log`.
-* The logfiles are readable as `csv` files.
-* The logfile metrics follow this format:
-    * Date
-    * Factorization time
-    * Resolution time
-    * Relative error
-    * Physical memory
-    * Virtual memory
-
-
-## Batch execution
-
-The project provides a batch script to run the three implementations and retrieve the metrics for each matrix. To run it:
-
-```sh
-$ python batch.py > /dev/null
-```
-
-The redirection of the output can be omitted if you don't mind seeing MATLAB crash over and over again (it crashes after the execution of the script).
+* Date
+* Platform: Windows/Linux
+* Matrix name
+* Library: Scikit-Sparse/Eigen/MATLAB
+* Factorization time (fractional seconds)
+* Resolution time (fractional seconds)
+* Relative error
+* Physical memory (bytes)
+* Virtual memory (bytes)
 
 ## Authors
 
