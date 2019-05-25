@@ -2,6 +2,7 @@ import os
 import time
 import subprocess
 import psutil
+import platform
 from datetime import datetime
 import csv
 from collections import defaultdict
