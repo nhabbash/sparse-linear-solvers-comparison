@@ -67,8 +67,13 @@ def main():
 
         else:
             # Run Python script, then C++
-            cmd = ["python", "python/main.py", mat_name]
-            run_subprocess(cmd)
+            platform = platform.system()
+
+            if (platform != "Windows")
+            {
+                cmd = ["python", "python/main.py", mat_name]
+                run_subprocess(cmd)
+            }
 
             cmd = ["c++/main.exe", mat_name]
             run_subprocess(cmd)
