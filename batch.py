@@ -3,6 +3,7 @@ import time
 import subprocess
 import psutil
 import platform
+
 from datetime import datetime
 import csv
 from collections import defaultdict
@@ -68,13 +69,12 @@ def main():
 
         else:
             # Run Python script, then C++
-            platform = platform.system()
+            platform_str = platform.system()
 
-            if (platform != "Windows")
-            {
+            if (platform_str != "Windows"):
                 cmd = ["python", "python/main.py", mat_name]
                 run_subprocess(cmd)
-            }
+            
 
             cmd = ["c++/main.exe", mat_name]
             run_subprocess(cmd)
