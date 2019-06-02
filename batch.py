@@ -65,6 +65,7 @@ def main():
             cmd = ["matlab", "-batch", "cd matlab;main(\'../" + mat_name + "\');"]
             #cmd = ["matlab", "matlab -nojvm -nodisplay -nosplash -nodesktop -r \"try;cd matlab;main(\'../" + mat_name + "\');catch;end;quit;\""]
             #cmd = ["matlab", "-nojvm", "-nodisplay", "-nosplash", "-nodesktop", "-r", "\"try;cd matlab;main(\'../" + mat_name + "\');catch;end;quit;\""]
+            print(f"running matlab for {mat_name}")
             run_subprocess(cmd)
 
         else:
@@ -73,10 +74,11 @@ def main():
 
             if (platform_str != "Windows"):
                 cmd = ["python", "python/main.py", mat_name]
+                print(f"running python for {mat_name}")
                 run_subprocess(cmd)
             
-
             cmd = ["c++/main.exe", mat_name]
+            print(f"running c++ for {mat_name}")
             run_subprocess(cmd)
 
     #timestamp = datetime.now().strftime('%d%m%Y%H%M%S')
