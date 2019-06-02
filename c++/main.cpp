@@ -28,7 +28,8 @@ int main(int argc, char *argv[])
     std::string mat_path = argv[1];
     std::string mat_name = std::filesystem::path(mat_path).string();
 
-    typedef SparseMatrix<double, ColMajor, int64_t> SpMat;
+    //typedef SparseMatrix<double, ColMajor, int64_t> SpMat;
+    typedef SparseMatrix<double, ColMajor, ptrdiff_t> SpMat;
     SpMat A;
     loadMarket(A, mat_path);
 
