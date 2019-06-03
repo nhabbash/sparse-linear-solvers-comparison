@@ -1,7 +1,6 @@
 .venv
 .vscode
 ipch
-c++/main.exe
 res/matrices
 log/*.log
 !res/matrices/ex15.mtx
