@@ -81,8 +81,8 @@ def main():
             print(f"running c++ for {mat_name}")
             run_subprocess(cmd)
 
-    #timestamp = datetime.now().strftime('%d%m%Y%H%M%S')
-    #os.rename(data_file, "log/data-" + timestamp + ".csv")
+    timestamp = datetime.now().strftime('%d%m%Y%H%M%S')
+    os.rename(data_file, "log/data-" + timestamp + ".csv")
 
 main()
 

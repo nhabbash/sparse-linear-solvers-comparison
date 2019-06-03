@@ -2,7 +2,6 @@
 #include <fstream>
 #include <chrono>
 #include <ctime>
-#include <experimental/filesystem>
 #include <Eigen/Sparse>
 #include <Eigen/unsupported/SparseExtra>
 
@@ -10,16 +9,16 @@ using namespace Eigen;
 
 std::string get_platform()
 {
-    #ifdef _WIN64 || _WIN32
+    #ifdef _WIN64
+    return "Windows";
+    #elif _WIN32
     return "Windows";
     #elif __unix || __unix__ || __linux__
     return "Linux";
-    #elif __APPLE__ || __MACH__
-    return "MacOSX";
     #else
     return "Other";
     #endif
-} 
+}
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +27,6 @@ int main(int argc, char *argv[])
         return -1;
     }
     std::string mat_path = argv[1];
-    std::string mat_name = std::experimental::filesystem::path(mat_path).string();
 
     typedef SparseMatrix<double, ColMajor, long long> SpMat;
     SpMat A;
@@ -66,10 +64,10 @@ int main(int argc, char *argv[])
     std::string platform = get_platform();
 
     size_t lastindex;
-    if(platform == "Linux") {lastindex = mat_name.find_last_of("/");}
-    else {lastindex = mat_name.find_last_of("\\");}
+    if(platform == "Linux") {lastindex = mat_path.find_last_of("/");}
+    else {lastindex = mat_path.find_last_of("\\");}
 
-    std::string name = mat_name.substr(lastindex+1, mat_name.length());
+    std::string name = mat_path.substr(lastindex+1, mat_path.length());
     lastindex = name.find_last_of("."); 
     name = name.substr(0, lastindex);
 
