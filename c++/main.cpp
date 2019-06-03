@@ -2,7 +2,7 @@
 #include <fstream>
 #include <chrono>
 #include <ctime>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <Eigen/Sparse>
 #include <Eigen/unsupported/SparseExtra>
 
@@ -23,24 +23,24 @@ std::string get_platform()
 
 int main(int argc, char *argv[])
 {
-    //if(argc < 2) return -1;
-
+    if(argc < 2) {
+        std::cout << "Missing matrix path" << std::endl;
+        return -1;
+    }
     std::string mat_path = argv[1];
-    std::string mat_name = std::filesystem::path(mat_path).string();
+    std::string mat_name = std::experimental::filesystem::path(mat_path).string();
 
-    //typedef SparseMatrix<double, ColMajor, int64_t> SpMat;
-    typedef SparseMatrix<double, ColMajor, ptrdiff_t> SpMat;
+    typedef SparseMatrix<double, ColMajor, long long> SpMat;
     SpMat A;
     loadMarket(A, mat_path);
 
     int n = A.cols();
     VectorXd xe = VectorXd::Constant(n, 1);
     MatrixXd b = A.selfadjointView<Lower>() * xe;
-    //MatrixXd b = A * xe;
 
     // Cholesky Factorization:
     auto start = std::chrono::high_resolution_clock::now();
-    SimplicialCholesky<SpMat> chol(A.selfadjointView<Lower>());
+    SimplicialLDLT<SpMat> chol(A.selfadjointView<Lower>());
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = std::chrono::duration<double>(end - start);
     std::string factorization_time(std::to_string(elapsed.count()));
@@ -55,7 +55,6 @@ int main(int argc, char *argv[])
     double rel_error = tmp.norm()/xe.norm();
 
     // Writing logfile
-
     time_t curr_time;
 	tm * curr_tm;
 	char date_string[100];
@@ -66,7 +65,10 @@ int main(int argc, char *argv[])
 
     std::string platform = get_platform();
 
-    size_t lastindex = mat_name.find_last_of("/"); 
+    size_t lastindex;
+    if(platform == "Linux") {lastindex = mat_name.find_last_of("/");}
+    else {lastindex = mat_name.find_last_of("\\");}
+
     std::string name = mat_name.substr(lastindex+1, mat_name.length());
     lastindex = name.find_last_of("."); 
     name = name.substr(0, lastindex);
